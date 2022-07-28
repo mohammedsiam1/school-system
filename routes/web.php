@@ -65,10 +65,14 @@ Route::group(
     Route::group(['namespace' => 'Subjects'], function () {
         Route::resource('subjects', 'SubjectController');
     });
+    //==============================Quizzes============================
+    Route::group(['namespace' => 'Quizzes'], function () {
+        Route::resource('Quizzes', 'QuizzController');
+    });
 
-    //==============================Exams============================
-    Route::group(['namespace' => 'Exams'], function () {
-        Route::resource('Exams', 'ExamController');
+    //==============================questions============================
+    Route::group(['namespace' => 'questions'], function () {
+        Route::resource('questions', 'QuestionController');
     });
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 });
