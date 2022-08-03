@@ -2,13 +2,13 @@
 @section('css')
     @toastr_css
 @section('title')
-    تعديل امتحان
+    اضافة كتاب جديد
 @stop
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
 @section('PageTitle')
-    تعديل امتحان
+    اضافة كتاب جديد
 @stop
 <!-- breadcrumb -->
 @endsection
@@ -30,45 +30,62 @@
                     <div class="col-xs-12">
                         <div class="col-md-12">
                             <br>
-                                <form action="{{route('Exams.update','test')}}" method="post">
-                                    {{ method_field('patch') }}
+                            <form action="{{route('library.store')}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-row">
 
                                     <div class="col">
-                                        <label for="title">اسم الامتحان باللغة العربية</label>
-                                        <input type="text" name="Name_ar" value="{{ $exam->getTranslation('name', 'ar') }}" class="form-control">
-                                        <input type="hidden" name="id" value="{{$exam->id}}">
-                                    </div>
-
-                                    <div class="col">
-                                        <label for="title">اسم الامتحان باللغة الانجليزية</label>
-                                        <input type="text" name="Name_en" value="{{ $exam->getTranslation('name', 'en') }}" class="form-control">
-                                    </div>
-
-                                    <div class="col">
-                                        <label for="title">الترم</label>
-                                        <input type="number" name="term" value="{{$exam->term}}" class="form-control">
+                                        <label for="title">اسم الكتاب</label>
+                                        <input type="text" name="title" class="form-control">
                                     </div>
 
                                 </div>
                                 <br>
 
                                 <div class="form-row">
-                                    <div class="form-group col">
-                                        <label for="academic_year">{{trans('Students_trans.academic_year')}} : <span class="text-danger">*</span></label>
-                                        <select class="custom-select mr-sm-2" name="academic_year">
-                                            <option selected disabled>{{trans('Parent_trans.Choose')}}...</option>
-                                            @php
-                                                $current_year = date("Y");
-                                            @endphp
-                                            @for($year=$current_year; $year<=$current_year +1 ;$year++)
-                                                <option value="{{$year}}" {{$year == $exam->academic_year ?'selected':''}}>{{ $year }}</option>
-                                            @endfor
-                                        </select>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="Grade_id">{{trans('Students_trans.Grade')}} : <span class="text-danger">*</span></label>
+                                            <select class="custom-select mr-sm-2" name="Grade_id">
+                                                <option selected disabled>{{trans('Parent_trans.Choose')}}...</option>
+                                                @foreach($grades as $grade)
+                                                    <option  value="{{ $grade->id }}">{{ $grade->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
 
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="Classroom_id">{{trans('Students_trans.classrooms')}} : <span class="text-danger">*</span></label>
+                                            <select class="custom-select mr-sm-2" name="Classroom_id">
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="section_id">{{trans('Students_trans.section')}} : </label>
+                                            <select class="custom-select mr-sm-2" name="section_id">
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div><br>
+
+
+
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="academic_year">المرفقات : <span class="text-danger">*</span></label>
+                                            <input type="file" accept="application/pdf" name="file_name" required>
+                                        </div>
+                                    </div>
                                 </div>
+
                                 <button class="btn btn-success btn-sm nextBtn btn-lg pull-right" type="submit">حفظ البيانات</button>
                             </form>
                         </div>

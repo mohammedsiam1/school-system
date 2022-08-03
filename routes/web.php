@@ -6,12 +6,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 
-    Auth::routes();
-Route::get('/', function()
-{
-    return view('auth.login');
-})->middleware('guest');
+//Auth::routes();
+Route::get('/', 'HomeController@index')->middleware('guest')->name('selection');
 
+Route::group(['namespace' => 'Auth'], function () {
+
+    Route::get('/login/{type}','LoginController@loginForm')->middleware('guest')->name('login.show');
+    Route::post('/login','LoginController@login')->name('login');
+    Route::get('/logout/{type}', 'LoginController@logout')->name('logout');
+
+});
 
 
 Route::group(
@@ -23,6 +27,8 @@ Route::group(
     {
         return view('auth.login');
     });*/
+    Route::get('/dashboard', [HomeController::class, 'dashboard'])->name(   'dashboard');
+
     Route::group(['namespace' => 'Grade'], function () {
         Route::resource('Grades', 'GradeController');
     });
@@ -36,7 +42,7 @@ Route::group(
         Route::resource('Sections', 'SectionController');
         Route::get('/classes/{id}', 'SectionController@getclasses');
         });
-    Route::view('add_parent','livewire.show_Form');
+    Route::view('add_parent','livewire.show_Form')->name('add_parent');
 
     //==============================Teachers============================
     Route::group(['namespace' => 'Teacher'], function () {
@@ -60,6 +66,12 @@ Route::group(
         Route::resource('ProcessingFee', 'ProcessingFeeController');
         Route::resource('Payment_students', 'PaymentController');
         Route::resource('Attendance', 'AttendanceController');
+        Route::get('/indirect', 'OnlineClasseController@indirectCreate')->name('indirect.create');
+        Route::post('/indirect', 'OnlineClasseController@storeIndirect')->name('indirect.store');
+        Route::resource('online_classes', 'OnlineClasseController');
+        Route::get('download_file/{filename}', 'LibraryController@downloadAttachment')->name('downloadAttachment');
+        Route::resource('library', 'LibraryController');
+
     });
     //==============================subjects============================
     Route::group(['namespace' => 'Subjects'], function () {
@@ -74,7 +86,12 @@ Route::group(
     Route::group(['namespace' => 'questions'], function () {
         Route::resource('questions', 'QuestionController');
     });
-    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+
+    //==============================Setting============================
+    Route::resource('settings', 'SettingController');
+
+
+
 });
 
 

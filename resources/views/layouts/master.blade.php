@@ -8,6 +8,7 @@
     <meta name="description" content="Webmin - Bootstrap 4 & Angular 5 Admin Dashboard Template" />
     <meta name="author" content="potenzaglobalsolutions.com" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
     @include('layouts.head')
 
 </head>
@@ -26,6 +27,7 @@
         <!--=================================
  preloader -->
 
+
         @include('layouts.main-header')
         @include('layouts.main-sidebar')
 
@@ -33,7 +35,6 @@
  Main content -->
         <!-- main-content -->
         <div class="content-wrapper">
-
             @yield('page-header')
             <div class="page-title">
                 <div class="row">
