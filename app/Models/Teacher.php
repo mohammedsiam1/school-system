@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Translatable\HasTranslations;
 
-class Teacher extends Model
+class Teacher extends Authenticatable
 {
     use HasFactory;
     use HasTranslations;
@@ -25,6 +26,10 @@ class Teacher extends Model
         return $this->belongsTo('App\Models\Gender', 'Gender_id');
     }
 
-
+// علاقة المعلمين مع الاقسام
+    public function Sections()
+    {
+        return $this->belongsToMany('App\Models\Section','teacher_section');
+    }
 
 }

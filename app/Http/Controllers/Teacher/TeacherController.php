@@ -57,12 +57,7 @@ class TeacherController extends Controller
         return $this->Teacher->UpdateTeachers($request);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Request $request)
     {
         return $this->Teacher->DeleteTeachers($request);

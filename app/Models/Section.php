@@ -20,14 +20,15 @@ class Section extends Model
         return $this->belongsTo('App\models\ClassRoom', 'classRooms_id');
     }
 
-    public function grades()
-    {
-        return $this->belongsTo('Grade', 'grades_id');
-    }
+
 
     // علاقة الاقسام مع المعلمين
     public function teachers()
     {
         return $this->belongsToMany('App\Models\Teacher','teacher_section');
+    }
+    public function Grades()
+    {
+        return $this->belongsTo('App\Models\Grade','Grade_id');
     }
 }
